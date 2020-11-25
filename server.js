@@ -20,7 +20,7 @@ app.get('/teams/:teamName', function (request, response) {
     let teamID = teamToIDs[request.params.teamName]
     let data = JSON.parse(res.toString())
     let resArr = data.league.standard.filter(ele => (ele.teamId.substr(0,ele.teamId.indexOf(' '))) === teamID
-    || ele.teamId.substr(ele.teamId.indexOf(' ')+1) === teamID)
+    || ele.teamId.substr(ele.teamId.indexOf(' ')+1) === teamID).map(ele => { return { fname: ele.firstName, lname: ele.lastName, jersey: ele.jersey, image: 'https://nba-players.herokuapp.com/players/' + ele.lastName.toLowerCase() + "/" + ele.firstName.toLowerCase(), id: ele.personId, pos: ele.pos}})
     response.send(resArr)
 })
 
